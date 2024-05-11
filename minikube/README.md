@@ -70,8 +70,6 @@ If number of deployment definition attributes is small, we can create a deployme
 ```
 kubectl create deployment <deployment_name> --image=<image_name> --replicas=<replicas_count>
 ```
-
-ku
 To list Deployments:
 
 ```
@@ -89,6 +87,26 @@ To see details about specific revision:
 ```
 $ kubectl rollout history deployment/<deployment_name> --revision=<revision_number>
 ```
+
+# Services
+
+To create a service:
+```
+$ kubectl create -f path/to/service-definition.yaml
+```
+To list services:
+```
+$ kubectl get services
+```
+To get minikube node IP:
+```
+$ minikube node list
+```
+or
+```
+$ minikube ip
+```
+
 
 # General
 
