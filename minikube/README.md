@@ -8,6 +8,10 @@ To list pods:
 ```
 kubectl get pods
 ```
+To list all pods and their labels:
+```
+$ kubectl get pods -A --show-labels
+```
 To delete pod:
 ```
 kubectl delete pod <pod_name>
@@ -106,7 +110,18 @@ or
 ```
 $ minikube ip
 ```
-
+or
+```
+$ minikube service list
+```
+To get service definition:
+```
+$ kubectl get service myapp-service -o yaml
+```
+To delete service:
+```
+$ kubectl delete service myapp-service
+```
 
 # General
 
