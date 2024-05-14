@@ -44,3 +44,10 @@ Plan of actions:
     $ curl http://192.168.59.100:30005
     ```
   * To apply change in pod's configuration file, simply delete affected pod and re-create it. It is not necessary to re-create service which targets that pod.
+* Final results:
+  * voting app in the browser:
+
+    ![What is this](voting-app-web-ui.png)
+  * Results app in the browser:
+
+    ![What is this](voting-app-results-web-ui.png)
