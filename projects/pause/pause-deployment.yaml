@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pause-deployment
+  labels:
+    app: pause
+    type: test
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: pause
+  template:
+    metadata:
+      labels:
+        app: pause
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: pause-container
+          image: public.ecr.aws/eks-distro/kubernetes/pause:3.7
+          resources:
+            requests:
+              cpu: 1
