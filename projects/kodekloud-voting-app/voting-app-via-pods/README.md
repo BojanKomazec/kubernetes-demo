@@ -1,9 +1,9 @@
-Components:
-- Voting app
-- Redis
-- Worker app
-- Postgres
-- Result app
+Components (all are Dockerized applications):
+- Voting app (https://hub.docker.com/r/kodekloud/examplevotingapp_vote)
+- Redis (https://hub.docker.com/_/redis)
+- Worker app (https://hub.docker.com/r/kodekloud/examplevotingapp_worker)
+- Postgres (https://hub.docker.com/_/postgres)
+- Result app (https://hub.docker.com/r/kodekloud/examplevotingapp_result)
 
 Plan of actions:
 * write definition files for pods for each component
