@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx_deployment-release_name
   labels:
     app: nginx
 spec:
@@ -18,9 +18,19 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: "2"
             memory: 4Gi
         ports:
-        - containerPort: 80
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        volumeMounts:
+          - mountPath: /user/share/nginx/html
+            name: nginx-index-file
+      volumes:
+        - name: nginx-index-file
+          configMap:
+            name: index-html-configmap
