@@ -102,6 +102,13 @@ To test PHP, in your browser, go to `http://<minikube_ip>:30000/helloworld.php`:
 
 <img src="./img/php-demo-helloworld-minikube.png"  width="1200">
 
+To get Minikube IP:
+```
+$ minikube ip
+```
+
+Port used is the one set for `NodePort` in `nginx-deployment.yaml`.
+
 
 ## Tearing down
 
