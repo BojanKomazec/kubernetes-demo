@@ -1,7 +1,30 @@
 This directory contains Kubernetes manifests for deploying PHP application
 https://github.com/BojanKomazec/php-demo to Minikube.
 
-## Checking prerequisites
+
+## Prerequisites
+
+Make sure you have the following installed and configured locally:
+* git
+* Docker
+* kubectl
+* Minikube
+
+Deployment via Kubernetes requires this application to be containerised so we
+first need to build a Docker image which contains the application.
+
+Please clone https://github.com/BojanKomazec/php-demo repository and build the
+image as stated in https://github.com/BojanKomazec/php-demo/blob/main/README.md:
+```
+$ docker build -t php-demo-fpm-debian-image -f ./dockerfile/php_fmp_debian.Dockerfile .
+```
+
+Verify that `php-demo-fpm-debian-image:latest` is listed among all local Docker
+images:
+```
+$ docker image ls
+```
+
 
 To verify that kubectl's current context is Minikube:
 ```
