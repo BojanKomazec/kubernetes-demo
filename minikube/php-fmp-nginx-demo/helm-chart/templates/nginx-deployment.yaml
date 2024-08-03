@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ index .Values "deployment-nginx" "name" }}
+spec:
+  replicas: {{ index .Values "deployment-nginx" "replicas" }}
+  selector:
+    matchLabels:
+      app: {{ index .Values "deployment-nginx" "app" }}
+  template:
+    metadata:
+      labels:
+        app: {{ index .Values "deployment-nginx" "app" }}
+    spec:
+      containers:
+      - name: {{ index .Values "deployment-nginx" "app" }}
+        image: {{ index .Values "deployment-nginx" "image" }}
+        ports:
+        - containerPort: {{ index .Values "deployment-nginx" "containerPort" }}
+        volumeMounts:
+        {{ toYaml (index .Values "deployment-nginx" "volumeMounts") | nindent 10}}
+      volumes:
+      {{ toYaml (index .Values "deployment-nginx" "volumes") | nindent 8 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ index .Values "service-nginx" "name" }}
+spec:
+  type: NodePort
+  selector:
+    app: {{ index .Values "deployment-nginx" "app" }}
+  ports:
+  {{ toYaml (index .Values "service-nginx" "ports") | nindent 4 }}

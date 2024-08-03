@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+
+      # The initContainer runs before the main containers in a Pod and can
+      # perform tasks such as copying files into shared volumes.
+      # We can use an init container to copy the application code from a source
+      # (like a Git repository, storage bucket or Docker image) to the shared
+      # volume. This ensures that the volume is prepared before the main
+      # application containers start.
+      initContainers:
+        - name: init-copy-php-app
+          image: php-demo-fpm-debian-image:latest
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: php-app-storage
+              mountPath: /app
+          command: ['cp', '-r', '/var/www/html', '/app']
+
+      containers:
+      - name: php
+        image: php-demo-fpm-debian-image:latest
+
+        # We are sure the image is available locally.
+        # If image is not present in Minikube Docker environment we'll error:
+        #   ErrImageNeverPull: Container image "php-demo-fpm-debian-image:latest"
+        #   is not present with pull policy of Never
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 9000
+        # volumeMounts: # None - No need for them on this container
+      volumes:
+      - name: php-app-storage
+        persistentVolumeClaim:
+          claimName: php-app-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-fpm
+spec:
+  selector:
+    app: php
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
